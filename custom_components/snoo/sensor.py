@@ -17,15 +17,47 @@ from .const import (
     SNOO_GATEWAY
 )
 
+
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Set up snoo sensors."""
     data = hass.data[DOMAIN][config_entry.entry_id]
     snoo = data[SNOO_GATEWAY]
     coordinator = data[SNOO_COORDINATOR]
 
-    async_add_entities(
-        [SnooDevice(coordinator, device) for device in snoo.devices.values()], True
-    )
+    entities = []
+
+    for device in snoo.devices.values():
+        entities.append(SnooDevice(coordinator, device))
+        entities.append(SnooSecurityDevice(coordinator, device))
+
+    async_add_entities(entities, True)
+
+
+class SnooSecurityDevice(CoordinatorEntity, Entity):
+    def __init__(self, coordinator, device):
+        """Initialize with API object, device id."""
+        super().__init__(coordinator)
+        self._device = device
+
+    @property
+    def name(self):
+        """Return the name of the snoo device if any."""
+        return self._device.name + "-security"
+
+    @property
+    def available(self):
+        """Return if the device is online."""
+        return self._device.is_online
+
+    @property
+    def unique_id(self):
+        """Return a unique, Home Assistant friendly identifier for this entity."""
+        return self._device.device_id + "-security"
+
+    @property
+    def state(self):
+        """Return the name of the sensor."""
+        return self._device.security_token
 
 
 class SnooDevice(CoordinatorEntity, Entity):

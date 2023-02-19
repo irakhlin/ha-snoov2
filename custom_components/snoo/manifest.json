@@ -3,8 +3,8 @@
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/sanghviharshit",
-  "domain": "snoo",
-  "name": "Snoo",
+  "domain": "snoo_ir",
+  "name": "Snoo IR",
   "version": "0.0.1",
-  "requirements": ["pysnooapi>=0.0.3", "pytz==2021.1"]
+  "requirements": ["git+https://github.com/irakhlin/pysnooapi.git@main#pysnooapi", "pytz==2021.1"]
 }
