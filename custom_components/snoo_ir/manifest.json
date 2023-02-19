@@ -6,5 +6,5 @@
   "domain": "snoo_ir",
   "name": "Snoo IR",
   "version": "0.0.1",
-  "requirements": ["git+https://github.com/irakhlin/pysnooapi.git@main#pysnooapi", "pytz==2021.1"]
+  "requirements": ["git+https://github.com/irakhlin/pysnooapi.git@master#pysnooapi2", "pytz==2021.1"]
 }

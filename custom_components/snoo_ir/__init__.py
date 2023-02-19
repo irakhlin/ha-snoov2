@@ -3,8 +3,8 @@ import asyncio
 from datetime import timedelta
 import logging
 
-import pysnooapi
-from pysnooapi.errors import InvalidCredentialsError, SnooError
+import pysnooapi2
+from pysnooapi2.errors import InvalidCredentialsError, SnooError
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
@@ -33,7 +33,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     conf = entry.data
 
     try:
-        snoo = await pysnooapi.login(conf[CONF_USERNAME], conf[CONF_PASSWORD], websession)
+        snoo = await pysnooapi2.login(conf[CONF_USERNAME], conf[CONF_PASSWORD], websession)
     except InvalidCredentialsError as err:
         _LOGGER.error("There was an error while logging in: %s", err)
         return False
